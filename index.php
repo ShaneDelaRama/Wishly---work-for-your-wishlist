@@ -2,7 +2,7 @@
 
 session_start();
 
-//TODOS
+//TODOS SUBMIT
 if(!isset($_SESSION["todos"])){
     $_SESSION["todos"] = [];//makes an empty array for todos. Need to initialize this first!
 }
@@ -18,8 +18,16 @@ if (isset($_POST["todo"])){
         echo ("<p>Nothing entered, please try again.</p>");
     }
 }
+//TODOS DELETE
+if (isset($_POST["delete"])){
+    $todo_index = $_POST["delete"];
+    unset($_SESSION["todos"][$todo_index]);
+    header("location: index.php");
+    exit;
+}
+
 //WISHLIST
-if (!isset($_SESSION["wishes"])){
+if(!isset($_SESSION["wishes"])){
     $_SESSION["wishes"]= [];
 }
 
@@ -34,8 +42,6 @@ if (isset($_POST["wish"])){
     }
 }
 
-
-
 ?>
 
 <form method = "POST"> 
@@ -48,23 +54,26 @@ if (isset($_POST["wish"])){
     <button type ="submit">Add Wish</button>
 </form>
 
+
 <ul>
-<?php //to do print
-echo "TO-DO LIST:";
-foreach ( $_SESSION["todos"] as $todo){ //do your request-processing logic before producing your page.
-    
-    echo "<li>$todo</li>";
-}
-?>
+    <?php //to do print
+        echo "TO-DO LIST:";
+        foreach($_SESSION["todos"] as $todo_index => $todo){ //do your request-processing logic before producing your page.
+            echo "<li>$todo</li>";       
+        }
+    ?>
+        <form method = "POST">
+            <button type="submit" name ="delete" value="<?=$todo_index?>" Delete </button> 
+        </form>
 </ul>
 
 
 <ul>
-<?php //wish print
-echo "WISHLIST:";
-foreach ( $_SESSION["wishes"] as $wish){
-    
-    echo "<li>$wish</li>";
-}
-?>
+    <?php //wish print
+    echo "WISHLIST:";
+    foreach ( $_SESSION["wishes"] as $wish){
+        
+        echo "<li>$wish</li>";
+    }
+    ?>
 </ul>
