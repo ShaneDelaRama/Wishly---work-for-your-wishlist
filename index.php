@@ -8,8 +8,8 @@ if(!isset($_SESSION["todos"])){
 }
 
 if (isset($_POST["todo"])){ 
+    $todo = $_POST["todo"];
     if(!empty($todo)){ //checks for no empty strings
-        $todo = $_POST["todo"];
         $_SESSION["todos"][] = $todo;//stores it in session todos
         header("Location: index.php");
         exit;
@@ -19,14 +19,14 @@ if (isset($_POST["todo"])){
     }
 }
 //WISHLIST
-if (!isset($_SESSION["wish"])){
+if (!isset($_SESSION["wishes"])){
     $_SESSION["wishes"]= [];
 }
 
-if (isset($_POST["wish"])){
+if (isset($_POST["wish"])){ 
+    $wish = $_POST["wish"]; //destination = value;  were adding the input from the post into the wish array. typically we're initializing and making this new variable
     if(!empty($wish)){
-        $wish = $_POST["wish"];
-        $_POST["wish"] = $_SESSION["wishes"];
+       $_SESSION["wishes"][]= $wish;
         header("location: index.php");
     }
     else{
@@ -49,12 +49,19 @@ if (isset($_POST["wish"])){
 </form>
 
 <ul>
-<?php
+<?php //to do print
+echo "TO-DO LIST:";
 foreach ( $_SESSION["todos"] as $todo){ //do your request-processing logic before producing your page.
     
     echo "<li>$todo</li>";
 }
+?>
+</ul>
 
+
+<ul>
+<?php //wish print
+echo "WISHLIST:";
 foreach ( $_SESSION["wishes"] as $wish){
     
     echo "<li>$wish</li>";
