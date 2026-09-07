@@ -13,8 +13,8 @@ if (isset($_POST["todo"])){
         $_SESSION["todos"][] = $todo;//stores it in session todos
         header("Location: index.php");
         exit;
-    }
-    else{
+        }
+        else{
         echo ("<p>Nothing entered, please try again.</p>");
     }
 }
