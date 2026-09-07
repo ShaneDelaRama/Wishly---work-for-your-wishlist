@@ -7,16 +7,16 @@ if(!isset($_SESSION["todos"])){
 }
 
 if (isset($_POST["todo"])){ 
-    if(strpos($todo, "") == false){
+    if(!empty($todo)){
                             //okay we need to add PRG (post, redirect, get). Bug found adds last added word repeatedly
         $todo = $_POST["todo"];
         $_SESSION["todos"][] = $todo;//stores it in session todos
         header("Location: index.php");
         exit;
     }
-    else if
-        echo ("<p>Nothing entered, please try again."</p>);
-
+    else{
+        echo ("<p>Nothing entered, please try again.</p>");
+    }
 }
 
 
@@ -31,8 +31,8 @@ if (isset($_POST["todo"])){
 
 <?php
 foreach ( $_SESSION["todos"] as $todo){ //do your request-processing logic before producing your page.
-    <ul>
+    echo "<ul>";
     echo ("<li>$todo<li>");
-    </ul>
+    echo "<ul>";
 }
 ?>
